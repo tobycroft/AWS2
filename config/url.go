@@ -7,7 +7,7 @@ const Private_msg = "/api/msg/msg"
 const Group_msg = "/api/msg/group_msg"
 const Request_count = "/v1/request/request/count"
 
-const ManualAPI = "/api/msg/"
+const ManualAPI = "/v1/"
 
 const Clear_private_unread = "/api/msg/clear_private_unread"
 const Clear_group_unread = "/api/msg/clear_group_unread"
