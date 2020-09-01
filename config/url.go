@@ -1,6 +1,6 @@
 package config
 
-const AuthURL = "/api/auth/userauth"
+const AuthURL = "/v1/index/index/userauthh"
 const Msg_list = "/api/msg/msg_list"
 
 const Private_msg = "/api/msg/msg"
