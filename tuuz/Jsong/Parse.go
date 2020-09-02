@@ -1,10 +1,5 @@
 package Jsong
 
-import (
-	"errors"
-	"go/types"
-)
-
 func ParseObject(data interface{}) (map[string]interface{}, error) {
 	ret, err := Encode(data)
 	if err != nil {
@@ -19,17 +14,4 @@ func ParseSlice(data interface{}) ([]interface{}, error) {
 		return nil, err
 	}
 	return JArray(ret)
-}
-
-func ParseAny(data interface{}) (interface{}, error) {
-	switch data.(type) {
-	case types.Map:
-		return ParseObject(data)
-
-	case types.Array:
-		return ParseSlice(data)
-
-	default:
-		return nil, errors.New("不是json格式")
-	}
 }
