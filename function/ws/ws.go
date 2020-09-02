@@ -8,6 +8,7 @@ import (
 	"main.go/tuuz/Date"
 	"main.go/tuuz/Jsong"
 	"main.go/tuuz/Net"
+	"reflect"
 	"sync"
 	"time"
 )
@@ -67,56 +68,57 @@ func Handler(json_str string, conn *websocket.Conn) {
 	if config.DEBUG_WS_REQ {
 		fmt.Println("DEBUG_WS_REQ", json_str)
 	}
-	data, derr := Jsong.ParseObject(json["data"])
-	if derr != nil {
-		fmt.Println("ws_derr:", derr)
-		data = map[string]interface{}{}
-		return
+	var data interface{}
+	if json["data"] != nil {
+		var derr error
+		fmt.Println(reflect.TypeOf(json["data"]))
+		data, derr = Jsong.ParseAny(json["data"])
+		if derr != nil {
+			fmt.Println("ws_derr:", derr)
+			data = map[string]interface{}{}
+			return
+		}
 	}
 	Type := Calc.Any2String(json["type"])
 	switch Type {
 	case "init", "INIT":
-		auth_init(conn, data, Type)
+		auth_init(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "join_room", "JOIN_ROOM":
-		join_room(conn, data, Type)
+		join_room(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "exit_room", "EXIT_ROOM":
-		exit_room(conn, data, Type)
+		exit_room(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "msg_list", "MSG_LIST":
-		msg_list(conn, data, Type)
+		msg_list(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "private_msg", "PRIVATE_MSG":
-		private_msg(conn, data, Type)
+		private_msg(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "group_msg":
-		group_msg(conn, data, Type)
+		group_msg(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "requst_count":
-		requst_count(conn, data, Type)
+		requst_count(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "ping":
-		ping(conn, data, Type)
-		break
-
-	case "api":
-		api(conn, data, Type)
+		ping(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "clear_private_unread":
-		clear_private_unread(conn, data, Type)
+		clear_private_unread(conn, data.(map[string]interface{}), Type)
 		break
 
 	case "clear_group_unread":
-		clear_group_unread(conn, data, Type)
+		clear_group_unread(conn, data.(map[string]interface{}), Type)
 		break
 
 	default:
