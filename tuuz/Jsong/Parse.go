@@ -21,7 +21,7 @@ func ParseSlice(data interface{}) ([]interface{}, error) {
 	return JArray(ret)
 }
 
-func ParseType(data interface{}) (interface{}, error) {
+func ParseAny(data interface{}) (interface{}, error) {
 	switch data.(type) {
 	case types.Map:
 		return ParseObject(data)
