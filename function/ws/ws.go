@@ -143,6 +143,7 @@ func auth_init(conn *websocket.Conn, data map[string]interface{}, Type string) {
 	ret, err := Net.Post(config.CHAT_URL+config.AuthURL, nil, map[string]interface{}{
 		"uid":   uid,
 		"token": token,
+		"wskey": config.KEY,
 		"type":  1,
 		"ip":    conn.RemoteAddr(),
 	}, nil, nil)
@@ -255,8 +256,9 @@ func msg_list(conn *websocket.Conn, data map[string]interface{}, Type string) {
 	uid, has := Conn2User2.Load(conn)
 	if has {
 		ret, err := Net.Post(config.CHAT_URL+config.Msg_list, nil, map[string]interface{}{
-			"uid": uid,
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"wskey": config.KEY,
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)
@@ -296,9 +298,10 @@ func private_msg(conn *websocket.Conn, data map[string]interface{}, Type string)
 	uid, has := Conn2User2.Load(conn)
 	if has {
 		ret, err := Net.Post(config.CHAT_URL+config.Private_msg, nil, map[string]interface{}{
-			"uid": uid,
-			"fid": data["uid"],
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"wskey": config.KEY,
+			"fid":   data["uid"],
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)
@@ -337,9 +340,10 @@ func group_msg(conn *websocket.Conn, data map[string]interface{}, Type string) {
 	uid, has := Conn2User2.Load(conn)
 	if has {
 		ret, err := Net.Post(config.CHAT_URL+config.Group_msg, nil, map[string]interface{}{
-			"uid": uid,
-			"fid": data["uid"],
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"wskey": config.KEY,
+			"fid":   data["uid"],
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)
@@ -378,8 +382,9 @@ func requst_count(conn *websocket.Conn, data map[string]interface{}, Type string
 	uid, has := Conn2User2.Load(conn)
 	if has {
 		ret, err := Net.Post(config.CHAT_URL+config.Request_count, nil, map[string]interface{}{
-			"uid": uid,
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"wskey": config.KEY,
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)
@@ -428,8 +433,9 @@ func api(conn *websocket.Conn, data map[string]interface{}, Type string) {
 	if has {
 		function := Calc.Any2String(data["func"])
 		ret, err := Net.Post(config.CHAT_URL+config.ManualAPI+function, nil, map[string]interface{}{
-			"uid": uid,
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"wskey": config.KEY,
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)
@@ -477,9 +483,10 @@ func clear_private_unread(conn *websocket.Conn, data map[string]interface{}, Typ
 			return
 		}
 		ret, err := Net.Post(config.CHAT_URL+config.Clear_private_unread, nil, map[string]interface{}{
-			"uid": uid,
-			"fid": data["id"],
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"fid":   data["id"],
+			"wskey": config.KEY,
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)
@@ -527,9 +534,10 @@ func clear_group_unread(conn *websocket.Conn, data map[string]interface{}, Type 
 			return
 		}
 		ret, err := Net.Post(config.CHAT_URL+config.Clear_group_unread, nil, map[string]interface{}{
-			"uid": uid,
-			"gid": data["id"],
-			"ip":  conn.RemoteAddr(),
+			"uid":   uid,
+			"gid":   data["id"],
+			"wskey": config.KEY,
+			"ip":    conn.RemoteAddr(),
 		}, nil, nil)
 		if config.DEBUG_REMOTE_RET {
 			fmt.Println("DEBUG_REMOTE_RET", ret, err)

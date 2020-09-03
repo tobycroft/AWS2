@@ -12,7 +12,7 @@
 <button type="button" id="send2">send public</button>
 <script>
 
-    var ws = 'ws://127.0.0.1/';
+    var ws = 'ws://127.0.0.1:81/';
     var ins = new WebSocket(ws);
     var textarea = document.getElementById('textarea');
     ins.onopen = function () {
@@ -29,8 +29,8 @@
 
 
     var init = new Object();
-    init.uid = 10061;
-    init.token = '317fc98c2789df022a41f060c29382e9';
+    init.uid = 1;
+    init.token = '1';
     document.getElementById('init').onclick = function () {
         ins.send(JSON.stringify({
             type: 'init',
