@@ -138,6 +138,7 @@ func json_handler(c *gin.Context, json map[string]interface{}, to_users []interf
 			if has && room.(string) == dest {
 				conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
 				if has {
+					uids = append(uids, uid)
 					conn.(*websocket.Conn).WriteJSON(data)
 				}
 			} else {
