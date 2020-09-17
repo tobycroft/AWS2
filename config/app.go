@@ -5,12 +5,12 @@ const SERVER_LISTEN_PORT = "81"
 
 const LOG = false
 
-const DEBUG = true
-const DEBUG_AUTH = true
-const DEBUG_WS_REQ = true
-const DEBUG_WS_RET = true
-const DEBUG_REMOTE_RET = true
-const DEBUG_SEND_RET = true
+const DEBUG = false
+const DEBUG_AUTH = false
+const DEBUG_WS_REQ = false
+const DEBUG_WS_RET = false
+const DEBUG_REMOTE_RET = false
+const DEBUG_SEND_RET = false
 
 const TIMER = false
 const DEBUG_CONN = false
