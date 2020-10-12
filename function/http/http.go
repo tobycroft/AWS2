@@ -119,13 +119,10 @@ func json_handler(c *gin.Context, json map[string]interface{}, to_users []interf
 
 	case "private_chat":
 		for _, uid := range to_users {
-			room, has := ws.Room2.Load(Calc.Any2String(uid))
-			if has && room.(string) == dest {
-				conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
-				if has {
-					uids = append(uids, uid)
-					conn.(*websocket.Conn).WriteJSON(data)
-				}
+			conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
+			if has {
+				uids = append(uids, uid)
+				conn.(*websocket.Conn).WriteJSON(data)
 			} else {
 				uidf = append(uidf, uid)
 			}
@@ -134,13 +131,10 @@ func json_handler(c *gin.Context, json map[string]interface{}, to_users []interf
 
 	case "group_chat":
 		for _, uid := range to_users {
-			room, has := ws.Room2.Load(Calc.Any2String(uid))
-			if has && room.(string) == dest {
-				conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
-				if has {
-					uids = append(uids, uid)
-					conn.(*websocket.Conn).WriteJSON(data)
-				}
+			conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
+			if has {
+				uids = append(uids, uid)
+				conn.(*websocket.Conn).WriteJSON(data)
 			} else {
 				uidf = append(uidf, uid)
 			}
@@ -149,13 +143,10 @@ func json_handler(c *gin.Context, json map[string]interface{}, to_users []interf
 
 	case "request_count":
 		for _, uid := range to_users {
-			room, has := ws.Room2.Load(Calc.Any2String(uid))
-			if has && room.(string) == "0" {
-				conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
-				if has {
-					uids = append(uids, uid)
-					conn.(*websocket.Conn).WriteJSON(data)
-				}
+			conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
+			if has {
+				uids = append(uids, uid)
+				conn.(*websocket.Conn).WriteJSON(data)
 			} else {
 				uidf = append(uidf, uid)
 			}
@@ -186,26 +177,24 @@ func json_handler(c *gin.Context, json map[string]interface{}, to_users []interf
 
 	case "indoor_message":
 		for _, uid := range to_users {
-			room, has := ws.Room2.Load(Calc.Any2String(uid))
-			if has && room.(string) == "0" {
-				conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
-				if has {
-					uids = append(uids, uid)
-					conn.(*websocket.Conn).WriteJSON(data)
-				}
+			conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
+			if has {
+				uids = append(uids, uid)
+				conn.(*websocket.Conn).WriteJSON(data)
+			} else {
+				uidf = append(uidf, uid)
 			}
 		}
 		break
 
 	case "outer_all":
 		for _, uid := range to_users {
-			room, has := ws.Room2.Load(Calc.Any2String(uid))
-			if has && room.(string) == "0" {
-				conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
-				if has {
-					uids = append(uids, uid)
-					conn.(*websocket.Conn).WriteJSON(data)
-				}
+			conn, has := ws.User2Conn2.Load(Calc.Any2String(uid))
+			if has {
+				uids = append(uids, uid)
+				conn.(*websocket.Conn).WriteJSON(data)
+			} else {
+				uidf = append(uidf, uid)
 			}
 		}
 		break
