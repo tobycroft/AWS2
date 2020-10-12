@@ -207,34 +207,34 @@ func auth_init(conn *websocket.Conn, data map[string]interface{}, Type string) {
 }
 
 func join_room(conn *websocket.Conn, data map[string]interface{}, Type string) {
-	uid, has := Conn2User2.Load(conn)
-	if has {
-		if data["chat_type"] == "private" {
-			res := map[string]interface{}{
-				"code": 0,
-				"data": "已经加入和" + Calc.Any2String(data["id"]) + "AWS2.1中无需进入房间！",
-				"type": Type,
-			}
-			conn.WriteJSON(res)
-		} else if data["chat_type"] == "group" {
-			res := map[string]interface{}{
-				"code": 0,
-				"data": "已经加入和" + Calc.Any2String(data["id"]) + "AWS2.1中无需进入房间！",
-				"type": Type,
-			}
-			conn.WriteJSON(res)
-		} else {
-			res := map[string]interface{}{
-				"code": 400,
-				"data": "类型不存在",
-				"type": Type,
-			}
-			conn.WriteJSON(res)
+	//uid, has := Conn2User2.Load(conn)
+	//if has {
+	if data["chat_type"] == "private" {
+		res := map[string]interface{}{
+			"code": 0,
+			"data": "已经加入和" + Calc.Any2String(data["id"]) + "AWS2.1中无需进入房间！",
+			"type": Type,
 		}
-		//Room2.Store(uid, Calc.Any2String(data["id"]))
+		conn.WriteJSON(res)
+	} else if data["chat_type"] == "group" {
+		res := map[string]interface{}{
+			"code": 0,
+			"data": "已经加入和" + Calc.Any2String(data["id"]) + "AWS2.1中无需进入房间！",
+			"type": Type,
+		}
+		conn.WriteJSON(res)
 	} else {
-		conn.WriteJSON(map[string]interface{}{"code": -1, "data": "Auth_Fail", "type": Type})
+		res := map[string]interface{}{
+			"code": 400,
+			"data": "类型不存在",
+			"type": Type,
+		}
+		conn.WriteJSON(res)
 	}
+	//Room2.Store(uid, Calc.Any2String(data["id"]))
+	//} else {
+	//	conn.WriteJSON(map[string]interface{}{"code": -1, "data": "Auth_Fail", "type": Type})
+	//}
 }
 
 func exit_room(conn *websocket.Conn, data map[string]interface{}, Type string) {
