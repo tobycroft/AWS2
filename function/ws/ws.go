@@ -212,14 +212,14 @@ func join_room(conn *websocket.Conn, data map[string]interface{}, Type string) {
 		if data["chat_type"] == "private" {
 			res := map[string]interface{}{
 				"code": 0,
-				"data": "已经加入和" + Calc.Any2String(data["id"]),
+				"data": "已经加入和" + Calc.Any2String(data["id"]) + "AWS2.1中无需进入房间！",
 				"type": Type,
 			}
 			conn.WriteJSON(res)
 		} else if data["chat_type"] == "group" {
 			res := map[string]interface{}{
 				"code": 0,
-				"data": "已经加入和" + Calc.Any2String(data["id"]),
+				"data": "已经加入和" + Calc.Any2String(data["id"]) + "AWS2.1中无需进入房间！",
 				"type": Type,
 			}
 			conn.WriteJSON(res)
