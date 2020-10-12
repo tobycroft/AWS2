@@ -231,7 +231,7 @@ func join_room(conn *websocket.Conn, data map[string]interface{}, Type string) {
 			}
 			conn.WriteJSON(res)
 		}
-		Room2.Store(uid, Calc.Any2String(data["id"]))
+		//Room2.Store(uid, Calc.Any2String(data["id"]))
 	} else {
 		conn.WriteJSON(map[string]interface{}{"code": -1, "data": "Auth_Fail", "type": Type})
 	}
