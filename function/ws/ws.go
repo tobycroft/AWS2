@@ -64,8 +64,12 @@ func On_exit(conn *websocket.Conn) {
 	uid, has := Conn2User2.Load(conn)
 	if has {
 		Room2.Delete(uid.(string))
-		User2Chan2.Delete(uid.(string))
 		User2Conn2.Delete(uid.(string))
+		ch, has := User2Chan2.Load(uid.(string))
+		if has {
+			ch.(chan interface{}) <- "close"
+		}
+		User2Chan2.Delete(uid.(string))
 		Conn2User2.Delete(conn)
 	}
 }
