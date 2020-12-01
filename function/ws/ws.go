@@ -18,7 +18,8 @@ var User2Conn2 sync.Map
 var Conn2User2 sync.Map
 var Room2 sync.Map
 
-var User2Chan = map[string]chan interface{}{}
+//var User2Chan = map[string]chan interface{}{}
+var User2Chan2 sync.Map
 
 func socket_send_handle(uid string, channel chan interface{}) {
 	for message := range channel {
@@ -63,6 +64,7 @@ func On_exit(conn *websocket.Conn) {
 	uid, has := Conn2User2.Load(conn)
 	if has {
 		Room2.Delete(uid.(string))
+		User2Chan2.Delete(uid.(string))
 		User2Conn2.Delete(uid.(string))
 		Conn2User2.Delete(conn)
 	}
@@ -188,6 +190,10 @@ func auth_init(conn *websocket.Conn, data map[string]interface{}, Type string) {
 			}
 			if rtt["code"].(float64) == 0 {
 				User2Conn2.Store(uid, conn)
+				channel := make(chan interface{}, 8)
+				User2Chan2.Store(uid, channel)
+				go socket_send_handle(uid, channel)
+				//User2Chan[uid] = make(chan interface{}, 8)
 				Conn2User2.Store(conn, uid)
 				Room2.Store(uid, "0")
 				message := "欢迎" + uid + "连入聊天服务器"
