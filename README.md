@@ -1,5 +1,5 @@
-# AWS2
-AWS2 is a plugin for AIM2 which is a hot-plug interface ,use this framework can trade the information in low lantency with websocket
+# AWS2.1
+AWS2.x is a plugin for AIM2.x which is a hot-plug interface ,use this framework can trade the information in low lantency with websocket
 
 # AWS是什么
 AWS2是一个转发器，全称AWebSocket，这是AIM1（TuuzIM v5）的前置程序，通过AWS2可以实现功能层热更新等功能
