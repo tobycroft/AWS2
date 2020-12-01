@@ -18,6 +18,19 @@ var User2Conn2 sync.Map
 var Conn2User2 sync.Map
 var Room2 sync.Map
 
+var User2Chan = map[string]chan interface{}{}
+
+func socket_send_handle(uid string, channel chan interface{}) {
+	for message := range channel {
+		conn, has := User2Conn2.Load(uid)
+		if has {
+			conn.(*websocket.Conn).WriteJSON(message)
+		} else {
+			return
+		}
+	}
+}
+
 func On_connect(conn *websocket.Conn) {
 	//err := conn.WriteMessage(1, []byte("连入成功"))
 	message := map[string]interface{}{
