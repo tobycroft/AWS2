@@ -5,7 +5,7 @@ const SERVER_LISTEN_PORT = "81"
 
 const LOG = false
 
-const DEBUG = false
+const DEBUG = true
 const DEBUG_AUTH = false
 const DEBUG_WS_REQ = false
 const DEBUG_WS_RET = false
